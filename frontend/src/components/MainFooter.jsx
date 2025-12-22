@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './MainFooter.css';
 
 const MainFooter = () => {
+    const recaptchaEnabled = import.meta.env.VITE_ENABLE_RECAPTCHA === 'true';
+    const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+
+    useEffect(() => {
+        if (recaptchaEnabled && recaptchaSiteKey) {
+            const script = document.createElement('script');
+            script.src = 'https://www.google.com/recaptcha/api.js?hl=en';
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+            return () => {
+                document.body.removeChild(script);
+            };
+        }
+    }, [recaptchaEnabled, recaptchaSiteKey]);
     return (
         <>
             <div data-wpr-lazyrender="1" className="site-newsletter py-5 text-white" style={{ background: '#071336' }}>
@@ -30,25 +45,14 @@ const MainFooter = () => {
                                 </div>
                                 <div className="forminator-row captcha-row">
                                     <div id="captcha-1" className="forminator-field-captcha forminator-col forminator-col-12 ">
-                                        <div className="forminator-captcha-left forminator-g-recaptcha" data-theme="dark" data-sitekey="6LdLX7kqAAAAABZUg_YvrC6piu8ECxtMrbjYYAek" data-size="normal">
-                                            <div style={{ width: '304px', height: '78px' }}>
-                                                <div>
-                                                    <iframe
-                                                        title="reCAPTCHA"
-                                                        width="304"
-                                                        height="78"
-                                                        role="presentation"
-                                                        name="a-fniz9rxx9d9a"
-                                                        frameBorder="0"
-                                                        scrolling="no"
-                                                        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation"
-                                                        src="https://www.google.com/recaptcha/api2/anchor?ar=2&amp;k=6LdLX7kqAAAAABZUg_YvrC6piu8ECxtMrbjYYAek&amp;co=aHR0cHM6Ly93d3cuZHJhZ2Fyd2FsLmNvbTo0NDM.&amp;hl=en&amp;v=TkacYOdEJbdB_JjX802TMer9&amp;theme=dark&amp;size=normal&amp;anchor-ms=20000&amp;execute-ms=15000&amp;cb=5e3a8hbfgtz"
-                                                    ></iframe>
-                                                </div>
-                                                <textarea id="g-recaptcha-response" name="g-recaptcha-response" className="g-recaptcha-response" style={{ width: '250px', height: '40px', border: '1px solid rgb(193, 193, 193)', margin: '10px 25px', padding: '0px', resize: 'none', display: 'none' }}></textarea>
+                                        {recaptchaEnabled && recaptchaSiteKey ? (
+                                            <div id="recaptcha-container" className="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="dark" data-size="normal" />
+                                        ) : (
+                                            <div className="recaptcha-mock">
+                                                <input type="checkbox" id="recaptcha-mock-check" />
+                                                <label htmlFor="recaptcha-mock-check">I'm not a robot (dev)</label>
                                             </div>
-                                            <iframe style={{ display: 'none' }}></iframe>
-                                        </div>
+                                        )}
                                     </div>
                                 </div>
                                 <input type="hidden" name="referer_url" defaultValue="" autoComplete="nope" />
@@ -128,8 +132,8 @@ const MainFooter = () => {
                             </div>
                         </div>
                         <div className="col-12">
-                            <div className="row">
-                                <div className="col-md-6 text-white text-md-right mt-3">
+                            <div  className="row">
+                                <div className="col-md-6 text-white text-md-right mt-3 ">
                                     Want Help? <a className="text-white" style={{ textDecoration: 'underline' }} aria-label="Click here to chat with us on whatsapp" href="https://wa.me/917305827772?text=Hi" target="_blank">Click Here</a> to chat with us on <img width="25" height="25" src="https://agarwals-219c6.kxcdn.com/wp-content/themes/dragarwal/assets/img/wa-icon.png" className="img-fluid mx-1 entered lazyloaded" alt="Whatsapp Icon" data-lazy-src="https://agarwals-219c6.kxcdn.com/wp-content/themes/dragarwal/assets/img/wa-icon.png" data-ll-status="loaded" />
                                     <noscript><img width="25" height="25" src="https://agarwals-219c6.kxcdn.com/wp-content/themes/dragarwal/assets/img/wa-icon.png" className="img-fluid mx-1" alt="Whatsapp Icon" /></noscript>
                                 </div>

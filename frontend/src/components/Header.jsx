@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import '../App.css'
+import './Header.css'
+import './HeaderSubmenu.css'
 
 const navLinks = [
   {
     name: 'Locations',
     url: '#',
     submenu: [
-      { name: 'Eye Hospitals', url: 'https://www.dragarwal.com/eye-hospitals/' },
+      { name: 'Eye Hospitals', url: '/eye-hospitals' },
       {
         name: 'Eye Clinics',
         url: '#',
@@ -67,11 +70,7 @@ const navLinks = [
         submenu: [
           {
             name: 'Optometry college in Chennai(Center of Excellence)',
-            url: '#',
-            submenu: [
-              { name: 'Bachelor of Optometry', url: 'https://www.dragarwal.com/programs/bsc-optometry/' },
-              { name: 'Master of Optometry', url: 'https://www.dragarwal.com/programs/msc-optometry/' }
-            ]
+            url: '#'
           },
           { name: 'Optometry college in Tirunelveli', url: 'https://www.dragarwal.com/programs/bachelor-of-science-in-optometry/' }
         ]
@@ -83,16 +82,34 @@ const navLinks = [
 ]
 
 export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [expandedMenu, setExpandedMenu] = useState(null);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    if (isMenuOpen) setExpandedMenu(null); // Reset submenus when closing main menu
+  };
+
+  const toggleSubmenu = (menuName) => {
+    if (expandedMenu === menuName) {
+      setExpandedMenu(null);
+    } else {
+      setExpandedMenu(menuName);
+    }
+  };
+
+  const isInternal = (url) => typeof url === 'string' && url.startsWith('/');
+
   return (
     <div className="top-shell">
       <div className="topbar">
         <div className="container-fluid">
           <div className="topmenu">
-            <a href="https://www.dragarwal.com/blogs/" className="topmenu-link">Blog</a>
-            <a href="https://www.dragarwal.com/media-coverage/" className="topmenu-link">Media</a>
-            <a href="https://www.dragarwal.com/careers/" className="topmenu-link">Careers</a>
-            <a href="https://www.dragarwal.com/international-eye-hospital/" className="topmenu-link">International Patients</a>
-            <a href="https://www.dragarwal.com/eye-test/" className="topmenu-link">Eye Test</a>
+            <Link to="/blogs" className="topmenu-link">Blog</Link>
+            <Link to="/media" className="topmenu-link">Media</Link>
+            <Link to="/careers" className="topmenu-link">Careers</Link>
+            <Link to="/international-eye-hospital" className="topmenu-link">International Patients</Link>
+            <Link to="/eye-test" className="topmenu-link">Eye Test</Link>
             
             <div className="gtranslate_wrapper">
               <select className="gt_selector" aria-label="Language" defaultValue="en|en">
@@ -120,18 +137,21 @@ export default function Header() {
 
       <header className="site-header navbar navbar-expand-lg agarwalnav py-lg-2">
         <div className="container-fluid px-2 px-lg-5">
+          <div id="desktoptoggler" onClick={toggleMenu} className={isMenuOpen ? 'open' : ''}>
+            <div className="toggler-icon"></div>
+          </div>
           <button className="navbar-toggler" type="button" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>
           
-          <a className="navbar-brand p-lg-0" href="https://www.dragarwal.com">
+          <Link className="navbar-brand p-lg-0" to="/">
             <img 
               width="168" 
               height="68" 
               src="https://agarwals-219c6.kxcdn.com/wp-content/uploads/2022/05/main_logo-02-01.svg" 
               alt="Dr Agarwals Eye Hospital_logo" 
             />
-          </a>
+          </Link>
 
           <div className="collapse navbar-collapse" id="navbarsExample05">
             <nav className="primary-nav" aria-label="main navigation">
@@ -146,15 +166,26 @@ export default function Header() {
                       <ul className={`sub-menu ${item.type === 'mega' ? 'mega-menu' : ''}`}>
                         {item.submenu.map((subItem, subIndex) => (
                           <li key={subIndex} className={`sub-menu-item ${subItem.submenu ? 'has-submenu' : ''}`}>
-                            <a href={subItem.url} className={`sub-menu-link ${subItem.className || ''}`}>
-                              {subItem.name}
-                              {subItem.submenu && <span className="chevron-right">▸</span>}
-                            </a>
+                            {isInternal(subItem.url) ? (
+                              <Link to={subItem.url} className={`sub-menu-link ${subItem.className || ''}`}>
+                                {subItem.name}
+                                {subItem.submenu && <span className="chevron-right">▸</span>}
+                              </Link>
+                            ) : (
+                              <a href={subItem.url} className={`sub-menu-link ${subItem.className || ''}`}>
+                                {subItem.name}
+                                {subItem.submenu && <span className="chevron-right">▸</span>}
+                              </a>
+                            )}
                             {subItem.submenu && (
                               <ul className="sub-menu-nested">
                                 {subItem.submenu.map((nestedItem, nestedIndex) => (
                                   <li key={nestedIndex} className="sub-menu-item">
-                                    <a href={nestedItem.url} className="sub-menu-link">{nestedItem.name}</a>
+                                    {isInternal(nestedItem.url) ? (
+                                      <Link to={nestedItem.url} className="sub-menu-link">{nestedItem.name}</Link>
+                                    ) : (
+                                      <a href={nestedItem.url} className="sub-menu-link">{nestedItem.name}</a>
+                                    )}
                                   </li>
                                 ))}
                               </ul>
@@ -177,9 +208,59 @@ export default function Header() {
                   </svg>
                 </button>
               </div>
-              <a href="https://www.dragarwal.com/book-appointment/" className="book-button">
-                Book Appointment
-              </a>
+              <Link to="/book-appointment" className="book-button">
+                <span>Book Appointment</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+        
+        {/* Desktop Menu Dropdown */}
+        <div className={`desktop-menu-dropdown ${isMenuOpen ? 'show' : ''}`}>
+          <div className="container-fluid px-2 px-lg-5">
+            <div className="row">
+              <div className="col-md-4">
+                <ul className="desktop-menu-list">
+                  <li><a href="#">All about eyes!</a></li>
+                  <li className={`has-arrow ${expandedMenu === 'leadership' ? 'expanded' : ''}`}>
+                    <a href="#" onClick={(e) => { e.preventDefault(); toggleSubmenu('leadership'); }}>
+                      Leadership
+                    </a>
+                    <ul className="desktop-submenu">
+                      <li><a href="/careers">Dr. Agarwal’s Health Care Ltd</a></li>
+                      <li><a href="#">Dr. Agarwal’s Eye Hospital Ltd</a></li>
+                    </ul>
+                  </li>
+                  <li className={`has-arrow ${expandedMenu === 'news' ? 'expanded' : ''}`}>
+                    <a href="#" onClick={(e) => { e.preventDefault(); toggleSubmenu('news'); }}>
+                      News & Media
+                    </a>
+                    <ul className="desktop-submenu">
+                      <li><a href="#">Media Kit</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-md-4">
+                <ul className="desktop-menu-list">
+                  <li><a href="#">Our Milestones</a></li>
+                  <li className={`has-arrow ${expandedMenu === 'investors' ? 'expanded' : ''}`}>
+                    <a href="#" onClick={(e) => { e.preventDefault(); toggleSubmenu('investors'); }}>
+                      For Investors
+                    </a>
+                    <ul className="desktop-submenu">
+                      <li><a href="#">Dr. Agarwal’s Eye Hospital Ltd</a></li>
+                      <li><a href="#">Dr. Agarwal’s Health Care Ltd</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-md-4">
+                <ul className="desktop-menu-list">
+                  <li><a href="#">For Doctors</a></li>
+                  <li><a href="#">Careers</a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

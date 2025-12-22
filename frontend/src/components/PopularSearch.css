@@ -1,0 +1,34 @@
+.popular-search {
+  padding: 24px 0 48px;
+}
+
+.popular-group + .popular-group {
+  margin-top: 24px;
+}
+
+.popular-search h4 {
+  color: #1e2c4c;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.popular-links {
+  line-height: 1.9;
+}
+
+.popular-link {
+  color: #2b66c1;
+  text-decoration: none;
+  margin-right: 16px;
+  position: relative;
+}
+
+.popular-link:hover { text-decoration: underline; }
+
+.popular-link::after {
+  content: '|';
+  color: #9aa4c4;
+  margin-left: 16px;
+}
+
+.popular-link:last-child::after { content: ''; margin: 0; }

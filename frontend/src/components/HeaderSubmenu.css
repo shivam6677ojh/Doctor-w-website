@@ -1,0 +1,48 @@
+/* Desktop Submenu Styles */
+.desktop-submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s ease;
+  padding-left: 20px;
+}
+
+.has-arrow.expanded .desktop-submenu {
+  max-height: 200px; /* Adjust based on content */
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.desktop-submenu li {
+  margin-bottom: 10px;
+}
+
+.desktop-submenu li:last-child {
+  margin-bottom: 0;
+}
+
+.desktop-submenu li a {
+  font-size: 1rem;
+  color: #5c637a;
+  font-weight: 400;
+}
+
+.desktop-submenu li a:hover {
+  color: #005da6;
+}
+
+/* Arrow Rotation */
+.desktop-menu-list li.has-arrow a::after {
+  content: '▾';
+  font-size: 0.8em;
+  margin-left: 10px;
+  color: #005da6;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.desktop-menu-list li.has-arrow.expanded > a::after {
+  transform: rotate(180deg);
+}
