@@ -9,13 +9,13 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://www.dragarwal.com',
+      item: '/',
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'Eye Test',
-      item: 'https://www.dragarwal.com/eye-test/',
+      item: '/eye-test',
     },
   ],
 }
@@ -91,13 +91,13 @@ const EyeTest = () => {
               <article className="eye-card" key={test.title}>
                 <header>
                   <h2>
-                    <a href={test.link} className="eye-card-title-link">
+                    <a href="/eye-test" className="eye-card-title-link">
                       {test.title}
                     </a>
                   </h2>
                 </header>
                 <p>{test.description}</p>
-                <a className="eye-card-link" href={test.link}>
+                <a className="eye-card-link" href="/eye-test">
                   {test.cta}
                 </a>
               </article>

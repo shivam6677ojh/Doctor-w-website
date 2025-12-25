@@ -14,6 +14,9 @@ import InternationalEyeHospital from './pages/InternationalEyeHospital'
 import SubmissionSuccess from './pages/SubmissionSuccess'
 import AppointmentConfirmed from './pages/AppointmentConfirmed'
 import EyeHospitals from './pages/EyeHospitals'
+import EyeTreatment from './pages/EyeTreatment'
+import EyeDiseases from './pages/EyeDiseases'
+import AboutEyeClinic from './pages/AboutEyeClinic'
 
 export default function App() {
   return (
@@ -24,6 +27,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/eye-hospitals" element={<EyeHospitals />} />
+          <Route path="/eye-treatment" element={<EyeTreatment />} />
+          <Route path="/eye-diseases" element={<EyeDiseases />} />
           <Route path="/media" element={<Media />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/eye-test" element={<EyeTest />} />
@@ -31,6 +36,7 @@ export default function App() {
           <Route path="/international-eye-hospital" element={<InternationalEyeHospital />} />
           <Route path="/thank-you" element={<SubmissionSuccess />} />
           <Route path="/appointment-confirmed" element={<AppointmentConfirmed />} />
+          <Route path="/eye-clinic/about" element={<AboutEyeClinic />} />
         </Routes>
         <Footermini />
         <MainFooter />

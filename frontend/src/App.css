@@ -207,7 +207,7 @@
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  top: 100%;
+  top: calc(100% - 1px); /* eliminate hover gap */
   left: 0;
   background: #fff;
   min-width: 220px;
@@ -216,8 +216,7 @@
   padding: 0.5rem 0;
   list-style: none;
   z-index: 1001;
-  transition: all 0.3s ease;
-  transform: translateY(10px);
+  transition: opacity 0.2s ease, visibility 0.2s ease; /* avoid vertical shift */
   display: block; /* Keep it in layout for transition */
   pointer-events: none;
 }
@@ -237,7 +236,6 @@
 .nav-item:hover .sub-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
   pointer-events: all;
 }
 
@@ -245,7 +243,6 @@
 .sub-menu:hover {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
   pointer-events: all;
 }
 
@@ -304,6 +301,16 @@
 .chevron-right {
   font-size: 0.8rem;
   color: #9aa4c4;
+}
+
+/* Invisible hover bridge to prevent flicker when moving cursor down */
+.nav-item.has-submenu::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 12px; /* bridge area */
 }
 
 .header-actions {
@@ -397,6 +404,75 @@
   background: transparent;
   padding: 0;
   cursor: pointer;
+}
+
+/* --- Treatments Grid & Card Styles --- */
+.card-section {
+  padding: 2rem 0;
+}
+
+.cardbox-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .cardbox-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .cardbox-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.cardbox {
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  height: 100%;
+}
+
+.cardbox-content {
+  padding: 1.25rem 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.cardbox-header h2 {
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.cardbox-header .text-black {
+  color: #0b2342;
+  text-decoration: none;
+}
+
+.cardbox-header span {
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+.cardbox-body p {
+  color: #5c637a;
+  margin: 0.75rem 0 1rem;
+}
+
+.cardbox-footer {
+  margin-top: auto;
+  color: #005da6;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cardbox-footer:hover {
+  text-decoration: underline;
 }
 
 .progress-dot .dot-bar {

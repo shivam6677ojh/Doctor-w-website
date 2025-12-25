@@ -8,13 +8,13 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://www.dragarwal.com',
+      item: '/',
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'Join us as we revolutionize eye care in India',
-      item: 'https://www.dragarwal.com/careers/',
+      item: '/careers',
     },
   ],
 }
@@ -323,7 +323,7 @@ const Careers = () => {
                   </div>
                 </div>
                 <p className="opportunity-summary">{role.summary}</p>
-                <a className="apply-btn" href={role.link} target="_blank" rel="noreferrer noopener">
+                <a className="apply-btn" href="/careers">
                   Apply Now
                 </a>
               </article>

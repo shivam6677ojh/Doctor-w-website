@@ -134,7 +134,7 @@ const MainFooter = () => {
                         <div className="col-12">
                             <div  className="row">
                                 <div className="col-md-6 text-white text-md-right mt-3 ">
-                                    Want Help? <a className="text-white" style={{ textDecoration: 'underline' }} aria-label="Click here to chat with us on whatsapp" href="https://wa.me/917305827772?text=Hi" target="_blank">Click Here</a> to chat with us on <img width="25" height="25" src="https://agarwals-219c6.kxcdn.com/wp-content/themes/dragarwal/assets/img/wa-icon.png" className="img-fluid mx-1 entered lazyloaded" alt="Whatsapp Icon" data-lazy-src="https://agarwals-219c6.kxcdn.com/wp-content/themes/dragarwal/assets/img/wa-icon.png" data-ll-status="loaded" />
+                                    Want Help? <a className="text-white" style={{ textDecoration: 'underline' }} aria-label="Click here to chat with us on whatsapp" href="https://wa.me/917305827772?text=Hi" target="_blank">Click Here</a> to chat with us on <img width="25" height="25" src="https://agarwals-219c6.kxcdn.com/wp-content/themes/dragarwal/assets/img/wa-icon.png" className=" mx-1 entered lazyloaded" alt="Whatsapp Icon" data-lazy-src="https://agarwals-219c6.kxcdn.com/wp-content/themes/dragarwal/assets/img/wa-icon.png" data-ll-status="loaded" />
                                     <noscript><img width="25" height="25" src="https://agarwals-219c6.kxcdn.com/wp-content/themes/dragarwal/assets/img/wa-icon.png" className="img-fluid mx-1" alt="Whatsapp Icon" /></noscript>
                                 </div>
                                 <div className="col-md-6 order-md-first">

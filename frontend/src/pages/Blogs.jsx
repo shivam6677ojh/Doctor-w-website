@@ -76,7 +76,7 @@ const Blogs = () => {
                   <p className="category-label">Category</p>
                   <h2>{category.title}</h2>
                 </div>
-                <a className="category-view-all" href={category.viewAll} target="_blank" rel="noreferrer noopener">
+                <a className="category-view-all" href="/blogs">
                   View all
                   <span aria-hidden="true">→</span>
                 </a>
@@ -84,16 +84,16 @@ const Blogs = () => {
               <div className="blog-card-grid">
                 {category.posts.map((post) => (
                   <article className="blog-card" key={post.link}>
-                    <a className="blog-card-media" href={post.link} target="_blank" rel="noreferrer noopener">
+                    <a className="blog-card-media" href="/blogs">
                       <img src={post.image} alt={post.title} loading="lazy" />
                     </a>
                     <div className="blog-card-body">
                       <p className="blog-card-date">{post.date}</p>
                       <h3>
-                        <a href={post.link} target="_blank" rel="noreferrer noopener">{post.title}</a>
+                        <a href="/blogs">{post.title}</a>
                       </h3>
                       <p className="blog-card-description">{post.description}</p>
-                      <a className="blog-card-link" href={post.link} target="_blank" rel="noreferrer noopener">
+                      <a className="blog-card-link" href="/blogs">
                         Read article
                       </a>
                     </div>

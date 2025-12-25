@@ -9,13 +9,13 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://www.dragarwal.com',
+      item: '/',
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'News & Media',
-      item: 'https://www.dragarwal.com/news-media/',
+      item: '/media',
     },
   ],
 }
@@ -60,14 +60,14 @@ const Media = () => {
             {mediaNews.map((item) => (
               <article className="media-card" key={item.link}>
                 <div className="media-card-image">
-                  <a href={item.link} target="_blank" rel="noreferrer noopener">
+                  <a href="/media">
                     <img src={item.image} alt={item.alt || item.title} loading="lazy" />
                   </a>
                 </div>
                 <div className="media-card-body">
                   <p className="media-card-date">{item.date}</p>
                   <h3>
-                    <a href={item.link} target="_blank" rel="noreferrer noopener">
+                    <a href="/media">
                       {item.title}
                     </a>
                   </h3>
@@ -75,7 +75,7 @@ const Media = () => {
                 <div className="media-card-footer">
 
                  <div className='inside'>
-                    <a href={item.link} target="_blank" rel="noreferrer noopener">
+                    <a href="/media">
                       Read More
                     </a>
                  </div>

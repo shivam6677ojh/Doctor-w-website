@@ -150,7 +150,7 @@ const BlogSection = () => {
                 >
                   <div className="blog-card">
                     <div className="blog-card-header">
-                      <a href={blog.link}>
+                      <a href="/blogs">
                         <img src={blog.image} alt={blog.title} className="blog-img" />
                       </a>
                     </div>
@@ -158,7 +158,7 @@ const BlogSection = () => {
                       <div className="blog-date">{blog.date}</div>
                       <h4 className="blog-title">{blog.title}</h4>
                       
-                      <a href={blog.link} className="blog-author">
+                      <a href="/blogs" className="blog-author">
                         <img src={blog.authorImage} alt={blog.authorName} />
                         <h5>{blog.authorName}</h5>
                       </a>
@@ -168,7 +168,7 @@ const BlogSection = () => {
                       </div>
                     </div>
                     <div className="blog-card-footer">
-                      <a href={blog.link}>read full article</a>
+                      <a href="/blogs">read full article</a>
                     </div>
                   </div>
                 </div>
@@ -181,7 +181,7 @@ const BlogSection = () => {
         </div>
 
         <div className="blog-explore-btn-container">
-          <a href="https://www.dragarwal.com/blogs" className="primary-btn">Explore More Blogs</a>
+          <a href="/blogs" className="primary-btn">Explore More Blogs</a>
         </div>
       </div>
     </section>

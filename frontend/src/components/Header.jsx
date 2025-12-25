@@ -14,56 +14,56 @@ const navLinks = [
         name: 'Eye Clinics',
         url: '#',
         submenu: [
-          { name: 'About Eye Clinic', url: 'https://www.dragarwal.com/eye-clinic-home/' },
-          { name: 'Find a Clinic', url: 'https://www.dragarwal.com/eye-clinics/' }
+          { name: 'About Eye Clinic', url: '/eye-clinic/about' },
+          { name: 'Find a Clinic', url: '/eye-hospitals' }
         ]
       }
     ]
   },
-  { name: 'Doctors', url: 'https://www.dragarwal.com/eye-doctors/' },
+  { name: 'Doctors', url: '/book-appointment' },
   {
     name: 'Treatments',
-    url: 'https://www.dragarwal.com/eye-treatment/',
+    url: '/eye-treatment',
     type: 'mega',
     submenu: [
-      { name: 'Cataract Surgery', url: 'https://www.dragarwal.com/eye-treatment/cataract-surgery/' },
-      { name: 'Refractive Surgery', url: 'https://www.dragarwal.com/eye-treatment/refractive-surgery/' },
-      { name: 'Dry Eyes', url: 'https://www.dragarwal.com/eye-treatment/dry-eyes/' },
-      { name: 'PDEK', url: 'https://www.dragarwal.com/eye-treatment/pdek/' },
-      { name: 'Anti VEGF Agents', url: 'https://www.dragarwal.com/eye-treatment/anti-vegf-agents/' },
-      { name: 'Cosmetic Eye Surgery', url: 'https://www.dragarwal.com/cosmetic-clinic/' },
-      { name: 'Vitrectomy', url: 'https://www.dragarwal.com/eye-treatment/vitrectomy/' },
-      { name: 'Lasik', url: 'https://www.dragarwal.com/eye-treatment/lasik/' },
-      { name: 'MIGS', url: 'https://www.dragarwal.com/eye-treatment/minimally-invasive-glaucoma-surgery/' },
-      { name: 'VIEW MORE', url: 'https://www.dragarwal.com/eye-treatment/', className: 'view-more' }
+      { name: 'Cataract Surgery', url: '/eye-treatment' },
+      { name: 'Refractive Surgery', url: '/eye-treatment' },
+      { name: 'Dry Eyes', url: '/eye-treatment' },
+      { name: 'PDEK', url: '/eye-treatment' },
+      { name: 'Anti VEGF Agents', url: '/eye-treatment' },
+      { name: 'Cosmetic Eye Surgery', url: '/eye-treatment' },
+      { name: 'Vitrectomy', url: '/eye-treatment' },
+      { name: 'Lasik', url: '/eye-treatment' },
+      { name: 'MIGS', url: '/eye-treatment' },
+      { name: 'VIEW MORE', url: '/eye-treatment', className: 'view-more' }
     ]
   },
   {
     name: 'Eye Diseases',
-    url: 'https://www.dragarwal.com/diseases-conditions/',
+    url: '/eye-diseases',
     type: 'mega',
     submenu: [
-      { name: 'Cataract', url: 'https://www.dragarwal.com/diseases-conditions/cataract/' },
-      { name: 'Glaucoma', url: 'https://www.dragarwal.com/diseases-conditions/glaucoma/' },
-      { name: 'Diabetic Retinopathy', url: 'https://www.dragarwal.com/diseases-conditions/diabetic-retinopathy/' },
-      { name: 'Squint', url: 'https://www.dragarwal.com/diseases-conditions/squint/' },
-      { name: 'Macular Hole', url: 'https://www.dragarwal.com/diseases-conditions/macular-hole/' },
-      { name: 'Retinal Detachment', url: 'https://www.dragarwal.com/diseases-conditions/retinal-detachment/' },
-      { name: 'Keratoconus', url: 'https://www.dragarwal.com/diseases-conditions/keratoconus/' },
-      { name: 'ROP', url: 'https://www.dragarwal.com/diseases-conditions/retinopathy-prematurity/' },
-      { name: 'VIEW MORE', url: 'https://www.dragarwal.com/diseases-conditions/', className: 'view-more' }
+      { name: 'Cataract', url: '/eye-diseases' },
+      { name: 'Glaucoma', url: '/eye-diseases' },
+      { name: 'Diabetic Retinopathy', url: '/eye-diseases' },
+      { name: 'Squint', url: '/eye-diseases' },
+      { name: 'Macular Hole', url: '/eye-diseases' },
+      { name: 'Retinal Detachment', url: '/eye-diseases' },
+      { name: 'Keratoconus', url: '/eye-diseases' },
+      { name: 'ROP', url: '/eye-diseases' },
+      { name: 'VIEW MORE', url: '/eye-diseases', className: 'view-more' }
     ]
   },
   {
     name: 'Education & Training',
-    url: 'https://www.dragarwal.com/study/',
+    url: '/careers',
     type: 'mega',
     submenu: [
-      { name: 'DNB', url: 'https://www.dragarwal.com/programs/dnb/' },
-      { name: 'Fellowship-Ophthalmology', url: 'https://www.dragarwal.com/courses/fellowship-for-ophthalmologists/' },
-      { name: 'Careers at Dr. Agarwals', url: 'https://www.dragarwal.com/careers/' },
-      { name: 'Short-Term-Optometry', url: 'https://www.dragarwal.com/programs/certificate-course-in-optometry/' },
-      { name: 'Short-Term-Ophthalmology', url: 'https://www.dragarwal.com/programs/certificate-program-in-ophthalmology/' },
+      { name: 'DNB', url: '/careers' },
+      { name: 'Fellowship-Ophthalmology', url: '/careers' },
+      { name: 'Careers at Dr. Agarwals', url: '/careers' },
+      { name: 'Short-Term-Optometry', url: '/careers' },
+      { name: 'Short-Term-Ophthalmology', url: '/careers' },
       {
         name: 'Optometry College',
         url: '#',
@@ -72,11 +72,11 @@ const navLinks = [
             name: 'Optometry college in Chennai(Center of Excellence)',
             url: '#'
           },
-          { name: 'Optometry college in Tirunelveli', url: 'https://www.dragarwal.com/programs/bachelor-of-science-in-optometry/' }
+          { name: 'Optometry college in Tirunelveli', url: '/careers' }
         ]
       },
-      { name: 'Fellowship-Optometry', url: 'https://www.dragarwal.com/programs/fellowship-course-in-optometry/' },
-      { name: 'Internship in Clinical Optometry', url: 'https://www.dragarwal.com/programs/internship-in-clinical-optometry/' }
+      { name: 'Fellowship-Optometry', url: '/careers' },
+      { name: 'Internship in Clinical Optometry', url: '/careers' }
     ]
   }
 ]

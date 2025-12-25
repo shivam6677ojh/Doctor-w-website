@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function LocationSection() {
   return (
@@ -31,7 +32,7 @@ export default function LocationSection() {
             </div>
           </div>
           
-          <a href="#" className="find-hospital-btn">Find an Eye hospital near you</a>
+          <Link to="/eye-hospitals" className="find-hospital-btn">Find an Eye hospital near you</Link>
         </div>
       </div>
     </section>

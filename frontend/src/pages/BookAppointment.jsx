@@ -5,8 +5,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org/',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.dragarwal.com' },
-    { '@type': 'ListItem', position: 2, name: 'Book Appointment', item: 'https://www.dragarwal.com/book-appointment/' },
+    { '@type': 'ListItem', position: 1, name: 'Home', item: '/' },
+    { '@type': 'ListItem', position: 2, name: 'Book Appointment', item: '/book-appointment' },
   ],
 }
 
@@ -217,7 +217,7 @@ const BookAppointment = () => {
           <div className="book-hero">
             <div className="book-copy">
               <h1 className="primary-heading">Book Appointment</h1>
-              <p>Book an appointment at <a className="brand-link" href="https://www.dragarwal.com/eye-hospitals/">Dr Agarwals Eye Hospitals</a> by filling the form below.</p>
+              <p>Book an appointment at <a className="brand-link" href="/eye-hospitals">Dr Agarwals Eye Hospitals</a> by filling the form below.</p>
               <form className="book-form" onSubmit={onSubmit} noValidate>
                 <div className="intl-form-note" aria-live="polite">{note}</div>
                 <label className="book-input">
@@ -328,7 +328,7 @@ const BookAppointment = () => {
                   <label className="check">
                     <input type="checkbox" checked={form.agreeTerms} onChange={(e) => setForm(f => ({ ...f, agreeTerms: e.target.checked }))} />
                     <span>
-                      I agree to the <a href="https://www.dragarwal.com/terms-and-conditions/">Terms & Conditions</a> and <a href="https://www.dragarwal.com/privacy-policy/">Privacy Policy</a>.
+                      I agree to the <a href="/terms-and-conditions">Terms & Conditions</a> and <a href="/privacy-policy">Privacy Policy</a>.
                     </span>
                   </label>
                   <label className="check">
