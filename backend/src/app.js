@@ -15,11 +15,15 @@ app.use(helmet());
 const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';
 let corsOptions = { origin: '*' };
 if (CORS_ORIGIN !== '*') {
-  const allowList = CORS_ORIGIN.split(',').map(s => s.trim()).filter(Boolean);
+  const allowList = CORS_ORIGIN
+    .split(',')
+    .map(s => s.trim().replace(/\/+$/, ''))
+    .filter(Boolean);
   corsOptions = {
     origin: function(origin, callback) {
       if (!origin) return callback(null, true);
-      if (allowList.includes(origin)) return callback(null, true);
+      const normalized = String(origin).trim().replace(/\/+$/, '');
+      if (allowList.includes(normalized)) return callback(null, true);
       return callback(new Error('CORS not allowed'), false);
     }
   };
