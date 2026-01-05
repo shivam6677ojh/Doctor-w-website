@@ -104,11 +104,17 @@ const BookAppointment = () => {
   useEffect(() => {
     if (!form.hospitalId || !form.department) { setDoctors([]); return }
     const params = new URLSearchParams({ hospitalId: form.hospitalId, department: form.department })
-    fetch(`/api/doctors?${params.toString()}`)
+    fetch(`/api/meta/doctors?${params.toString()}`)
       .then(r => r.json())
-      .then(j => setDoctors(j.doctors || []))
-      .catch(() => setDoctors([]))
+      .then(j => setDoctors((j && j.doctors) || []))
+      .catch(() => setDoctors([{ id: 'ANY', name: 'Any Available Doctor' }]))
   }, [form.hospitalId, form.department])
+
+  useEffect(() => {
+    if (doctors.length && !form.doctorId) {
+      setForm(f => ({ ...f, doctorId: doctors[0].id }))
+    }
+  }, [doctors])
 
   useEffect(() => {
     if (!form.date) { setTimeslots([]); return }
@@ -151,7 +157,17 @@ const BookAppointment = () => {
       }
       if (!payload.doctorName) {
         const d = doctors.find(d => d.id === payload.doctorId)
-        payload.doctorName = d?.name || (payload.doctorId === 'ANY' ? 'Any Available Doctor' : 'Selected Doctor')
+        if (d?.name) {
+          payload.doctorName = d.name
+        } else if (payload.doctorId === 'ANY') {
+          payload.doctorName = 'Any Available Doctor'
+        } else if (payload.doctorId === 'R-ONCALL') {
+          payload.doctorName = 'On-call Doctor'
+        } else if (payload.doctorId === 'R-DUTY') {
+          payload.doctorName = 'Duty Doctor'
+        } else {
+          payload.doctorName = 'Selected Doctor'
+        }
       }
       const res = await fetch('/api/appointments', {
         method: 'POST',
@@ -275,7 +291,20 @@ const BookAppointment = () => {
                 </div>
                 <label className="book-input with-plus">
                   <span className="field-label">Hospital</span>
-                  <select value={form.hospitalId} onChange={(e) => setForm(f => ({ ...f, hospitalId: e.target.value, doctorId: '', timeslot: '' }))}>
+                  <select value={form.hospitalId} onChange={(e) => {
+                    const value = e.target.value
+                    const h = hospitals.find(x => x.id === value)
+                    setForm(f => ({
+                      ...f,
+                      hospitalId: value,
+                      hospitalName: h?.name || '',
+                      // Auto-sync location from selected hospital if available
+                      state: h?.state || f.state,
+                      city: h?.city || f.city,
+                      doctorId: '',
+                      timeslot: ''
+                    }))
+                  }}>
                     <option value="">Select Hospital</option>
                     {hospitals.map(h => (
                       <option key={h.id} value={h.id}>{h.name} - {h.city}</option>
@@ -305,9 +334,17 @@ const BookAppointment = () => {
                     <span className="field-label">Select Doctor</span>
                     <select value={form.doctorId} onChange={(e) => setForm(f => ({ ...f, doctorId: e.target.value, timeslot: '' }))}>
                       <option value="">Select Doctor</option>
-                      {doctors.map(d => (
-                        <option key={d.id} value={d.id}>{d.name}</option>
-                      ))}
+                      {(!doctors || !doctors.length) ? (
+                        <>
+                          <option value="ANY">Any Available Doctor</option>
+                          <option value="R-ONCALL">On-call Doctor</option>
+                          <option value="R-DUTY">Duty Doctor</option>
+                        </>
+                      ) : (
+                        doctors.map(d => (
+                          <option key={d.id} value={d.id}>{d.name}</option>
+                        ))
+                      )}
                     </select>
                   </label>
                   <label className="book-input">
