@@ -4,9 +4,10 @@ import './ManualSearch.css'
 export default function ManualSearch({ hospitals = [], onFilter }) {
   const [tab, setTab] = useState('region') // region | state | city
   const [countries, setCountries] = useState([])
+  const API_BASE = import.meta.env.VITE_API_BASE || ''
 
   useEffect(() => {
-    fetch('/api/meta/countries-states')
+    fetch(`${API_BASE}/api/meta/countries-states`)
       .then(r => r.json())
       .then(j => setCountries(j.countries || []))
       .catch(() => setCountries([]))

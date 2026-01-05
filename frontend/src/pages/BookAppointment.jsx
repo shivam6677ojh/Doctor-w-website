@@ -12,6 +12,7 @@ const breadcrumbSchema = {
 
 const BookAppointment = () => {
   const navigate = useNavigate()
+  const API_BASE = import.meta.env.VITE_API_BASE || ''
   const [meta, setMeta] = useState({ countries: [], departments: [] })
   const [hospitals, setHospitals] = useState([])
   const [doctors, setDoctors] = useState([])
@@ -45,8 +46,8 @@ const BookAppointment = () => {
     ;(async () => {
       try {
         const [cRes, dRes] = await Promise.all([
-          fetch('/api/meta/countries-states'),
-          fetch('/api/meta/departments'),
+          fetch(`${API_BASE}/api/meta/countries-states`),
+          fetch(`${API_BASE}/api/meta/departments`),
         ])
         const c = await cRes.json()
         const d = await dRes.json()
@@ -95,7 +96,7 @@ const BookAppointment = () => {
     if (form.country) params.set('country', form.country)
     if (form.state) params.set('state', form.state)
     if (form.city) params.set('city', form.city)
-    fetch(`/api/meta/hospitals?${params.toString()}`)
+    fetch(`${API_BASE}/api/meta/hospitals?${params.toString()}`)
       .then(r => r.json())
       .then(j => setHospitals(j.hospitals || []))
       .catch(() => setHospitals([]))
@@ -104,7 +105,7 @@ const BookAppointment = () => {
   useEffect(() => {
     if (!form.hospitalId || !form.department) { setDoctors([]); return }
     const params = new URLSearchParams({ hospitalId: form.hospitalId, department: form.department })
-    fetch(`/api/meta/doctors?${params.toString()}`)
+    fetch(`${API_BASE}/api/meta/doctors?${params.toString()}`)
       .then(r => r.json())
       .then(j => setDoctors((j && j.doctors) || []))
       .catch(() => setDoctors([{ id: 'ANY', name: 'Any Available Doctor' }]))
@@ -119,7 +120,7 @@ const BookAppointment = () => {
   useEffect(() => {
     if (!form.date) { setTimeslots([]); return }
     const params = new URLSearchParams({ doctorId: form.doctorId || 'ANY', date: form.date })
-    fetch(`/api/timeslots?${params.toString()}`)
+    fetch(`${API_BASE}/api/timeslots?${params.toString()}`)
       .then(r => r.json())
       .then(j => setTimeslots(j.timeslots || []))
       .catch(() => setTimeslots([]))
@@ -169,7 +170,7 @@ const BookAppointment = () => {
           payload.doctorName = 'Selected Doctor'
         }
       }
-      const res = await fetch('/api/appointments', {
+      const res = await fetch(`${API_BASE}/api/appointments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

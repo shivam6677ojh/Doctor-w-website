@@ -10,9 +10,9 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      # Optional: lock CORS to your frontend origin (comma-separate if multiple)
-      # - key: CORS_ORIGIN
-      #   value: https://your-frontend.example.com
+      # Lock CORS to your frontend origin (comma-separate if multiple)
+      - key: CORS_ORIGIN
+        value: https://doctor-w-website.onrender.com
       # Storage base to align with constants.js
       - key: STORAGE_DIR
         value: /opt/render/project/src/backend/storage
@@ -20,3 +20,15 @@ services:
       name: backend-storage
       mountPath: /opt/render/project/src/backend/storage
       sizeGB: 1
+  - type: static_site
+    name: doctorweb-frontend
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=300
+    envVars:
+      - key: VITE_API_BASE
+        value: https://doctor-w-website.onrender.com
