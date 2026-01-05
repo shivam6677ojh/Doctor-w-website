@@ -35,6 +35,11 @@ ensureCoreDirs();
 // Static for uploads
 app.use('/uploads', express.static(UPLOAD_DIR));
 
+// Simple health check/root route for Render
+app.get('/', (req, res) => {
+  res.json({ ok: true, service: 'doctorweb-backend' });
+});
+
 // API routes
 app.use('/api', routes);
 

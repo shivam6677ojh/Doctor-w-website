@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: doctorweb-backend
+    env: node
+    rootDir: backend
+    plan: starter
+    buildCommand: npm install
+    startCommand: node start.js
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Optional: lock CORS to your frontend origin (comma-separate if multiple)
+      # - key: CORS_ORIGIN
+      #   value: https://your-frontend.example.com
+      # Storage base to align with constants.js
+      - key: STORAGE_DIR
+        value: /opt/render/project/src/backend/storage
+    disk:
+      name: backend-storage
+      mountPath: /opt/render/project/src/backend/storage
+      sizeGB: 1

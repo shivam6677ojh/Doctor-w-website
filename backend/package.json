@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "main": "start.js",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "nodemon start.js",
-    "start": "node start.js"
+    "start": "node start.js",
+    "build": "echo 'No build step for backend'"
   },
   "dependencies": {
     "cors": "^2.8.5",
