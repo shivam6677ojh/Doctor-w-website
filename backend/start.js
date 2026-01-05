@@ -20,6 +20,10 @@ const MONGO_DB_NAME = process.env.MONGO_DB_NAME || 'doctorweb';
   });
 })();
 
+app.get('/', (req, res) => {
+  res.json({ ok: true, service: 'doctorweb-backend' });
+}); 
+
 process.on('unhandledRejection', (err) => {
   console.error('Unhandled Rejection:', err);
 });
