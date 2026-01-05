@@ -36,8 +36,8 @@ const InternationalEyeHospital = () => {
               note && (note.textContent = 'Submitting...')
               submitBtn && submitBtn.setAttribute('disabled', 'true')
               try {
-                const base = import.meta.env.VITE_API_BASE || ''
-                const res = await fetch(`${base}/api/intl/appointments`, {
+                const API_BASE = (import.meta.env.VITE_API_BASE || '').replace(/\/+$/, '')
+                const res = await fetch(`${API_BASE}/api/intl/appointments`, {
                   method: 'POST',
                   body: data,
                 })

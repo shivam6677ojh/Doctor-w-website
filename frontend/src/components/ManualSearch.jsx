@@ -4,7 +4,7 @@ import './ManualSearch.css'
 export default function ManualSearch({ hospitals = [], onFilter }) {
   const [tab, setTab] = useState('region') // region | state | city
   const [countries, setCountries] = useState([])
-  const API_BASE = import.meta.env.VITE_API_BASE || ''
+  const API_BASE = (import.meta.env.VITE_API_BASE || '').replace(/\/+$/, '')
 
   useEffect(() => {
     fetch(`${API_BASE}/api/meta/countries-states`)

@@ -4,7 +4,7 @@ import ManualSearch from '../components/ManualSearch'
 import PopularSearch from '../components/PopularSearch'
 
 export default function EyeHospitals() {
-  const API_BASE = import.meta.env.VITE_API_BASE || ''
+  const API_BASE = (import.meta.env.VITE_API_BASE || '').replace(/\/+$/, '')
   const [hospitals, setHospitals] = useState([])
   const [query, setQuery] = useState('')
   const [filters, setFilters] = useState({ country: '', state: '', city: '' })

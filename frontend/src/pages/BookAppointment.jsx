@@ -12,7 +12,7 @@ const breadcrumbSchema = {
 
 const BookAppointment = () => {
   const navigate = useNavigate()
-  const API_BASE = import.meta.env.VITE_API_BASE || ''
+  const API_BASE = (import.meta.env.VITE_API_BASE || '').replace(/\/+$/, '')
   const [meta, setMeta] = useState({ countries: [], departments: [] })
   const [hospitals, setHospitals] = useState([])
   const [doctors, setDoctors] = useState([])
