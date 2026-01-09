@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css'
 import './Header.css'
@@ -83,11 +83,17 @@ const navLinks = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
     if (isMenuOpen) setExpandedMenu(null); // Reset submenus when closing main menu
+  };
+
+  const toggleMobile = () => {
+    setIsMobileOpen((v) => !v);
+    if (isMobileOpen) setExpandedMenu(null);
   };
 
   const toggleSubmenu = (menuName) => {
@@ -99,6 +105,15 @@ export default function Header() {
   };
 
   const isInternal = (url) => typeof url === 'string' && url.startsWith('/');
+
+  useEffect(() => {
+    if (isMobileOpen) {
+      document.body.classList.add('mobile-nav-open')
+    } else {
+      document.body.classList.remove('mobile-nav-open')
+    }
+    return () => document.body.classList.remove('mobile-nav-open')
+  }, [isMobileOpen])
 
   return (
     <div className="top-shell">
@@ -140,7 +155,13 @@ export default function Header() {
           <div id="desktoptoggler" onClick={toggleMenu} className={isMenuOpen ? 'open' : ''}>
             <div className="toggler-icon"></div>
           </div>
-          <button className="navbar-toggler" type="button" aria-label="Toggle navigation">
+          <button
+            className="navbar-toggler"
+            type="button"
+            aria-label="Toggle navigation"
+            aria-expanded={isMobileOpen}
+            onClick={toggleMobile}
+          >
             <span className="navbar-toggler-icon" />
           </button>
           
@@ -265,6 +286,89 @@ export default function Header() {
           </div>
         </div>
       </header>
+      {/* Mobile Nav Drawer */}
+      <div className={`mobile-nav${isMobileOpen ? ' open' : ''}`} aria-hidden={!isMobileOpen}>
+        <div className="mobile-nav__header">
+          <Link className="navbar-brand" to="/" onClick={() => setIsMobileOpen(false)}>
+            <img 
+              width="140" 
+              height="56" 
+              src="https://agarwals-219c6.kxcdn.com/wp-content/uploads/2022/05/main_logo-02-01.svg" 
+              alt="Dr Agarwals Eye Hospital_logo" 
+            />
+          </Link>
+          <button className="mobile-nav__close" aria-label="Close menu" onClick={toggleMobile}>✕</button>
+        </div>
+        <nav className="mobile-nav__body">
+          <ul className="mobile-nav__list">
+            {navLinks.map((item, index) => (
+              <li key={index} className={`mobile-nav__item ${item.submenu ? 'has-sub' : ''}`}>
+                <div className="mobile-nav__link-row">
+                  {isInternal(item.url) ? (
+                    <Link to={item.url} className="mobile-nav__link" onClick={() => setIsMobileOpen(false)}>
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <a href={item.url} className="mobile-nav__link" onClick={() => setIsMobileOpen(false)}>
+                      {item.name}
+                    </a>
+                  )}
+                  {item.submenu && (
+                    <button
+                      className={`mobile-nav__chev ${expandedMenu === item.name ? 'exp' : ''}`}
+                      aria-label="Expand submenu"
+                      onClick={(e) => { e.preventDefault(); toggleSubmenu(item.name); }}
+                    >
+                      ▾
+                    </button>
+                  )}
+                </div>
+                {item.submenu && (
+                  <ul className={`mobile-sub ${expandedMenu === item.name ? 'show' : ''}`}>
+                    {item.submenu.map((subItem, subIndex) => (
+                      <li key={subIndex} className={`mobile-sub__item ${subItem.submenu ? 'has-sub' : ''}`}>
+                        {isInternal(subItem.url) ? (
+                          <Link to={subItem.url} className="mobile-sub__link" onClick={() => setIsMobileOpen(false)}>
+                            {subItem.name}
+                          </Link>
+                        ) : (
+                          <a href={subItem.url} className="mobile-sub__link" onClick={() => setIsMobileOpen(false)}>
+                            {subItem.name}
+                          </a>
+                        )}
+                        {subItem.submenu && (
+                          <ul className="mobile-sub-nested">
+                            {subItem.submenu.map((nestedItem, nestedIndex) => (
+                              <li key={nestedIndex} className="mobile-sub-nested__item">
+                                {isInternal(nestedItem.url) ? (
+                                  <Link to={nestedItem.url} className="mobile-sub-nested__link" onClick={() => setIsMobileOpen(false)}>
+                                    {nestedItem.name}
+                                  </Link>
+                                ) : (
+                                  <a href={nestedItem.url} className="mobile-sub-nested__link" onClick={() => setIsMobileOpen(false)}>
+                                    {nestedItem.name}
+                                  </a>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+          <div className="mobile-nav__actions">
+            <Link to="/book-appointment" className="book-button" onClick={() => setIsMobileOpen(false)}>
+              <span>Book Appointment</span>
+            </Link>
+          </div>
+        </nav>
+      </div>
+      {/* Scrim is kept as sibling for correct stacking */}
+      <button className={`mobile-nav__scrim${isMobileOpen ? ' show' : ''}`} aria-label="Close menu" onClick={toggleMobile} />
     </div>
   )
 }

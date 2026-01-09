@@ -32,3 +32,14 @@
 }
 
 .popular-link:last-child::after { content: ''; margin: 0; }
+
+@media (max-width: 576px) {
+  .popular-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    line-height: 1.6;
+  }
+  .popular-link { margin-right: 0; }
+  .popular-link::after { content: none; margin: 0; }
+}

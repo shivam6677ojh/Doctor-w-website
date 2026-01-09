@@ -2235,7 +2235,8 @@
   }
 
   .slide-stage {
-    min-height: 600px;
+    min-height: 420px;
+    height: 60vh;
   }
 
   .progress-dots {
