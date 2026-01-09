@@ -179,10 +179,17 @@ export default function Header() {
               <ul className="nav-list">
                 {navLinks.map((item, index) => (
                   <li key={index} className={`nav-item ${item.submenu ? 'has-submenu' : ''} ${item.type === 'mega' ? 'has-mega-menu' : ''}`}>
-                    <a href={item.url} className="nav-link">
-                      {item.name}
-                      <span className="chevron" aria-hidden="true">▾</span>
-                    </a>
+                    {isInternal(item.url) ? (
+                      <Link to={item.url} className="nav-link">
+                        {item.name}
+                        {item.submenu && <span className="chevron" aria-hidden="true">▾</span>}
+                      </Link>
+                    ) : (
+                      <a href={item.url} className="nav-link">
+                        {item.name}
+                        {item.submenu && <span className="chevron" aria-hidden="true">▾</span>}
+                      </a>
+                    )}
                     {item.submenu && (
                       <ul className={`sub-menu ${item.type === 'mega' ? 'mega-menu' : ''}`}>
                         {item.submenu.map((subItem, subIndex) => (
